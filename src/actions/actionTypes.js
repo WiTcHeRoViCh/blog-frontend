@@ -1,6 +1,7 @@
 //User actions
-export const GET_USER = "GET_USER";
-export const SET_USERS = "SET_USERS";
+export const SIGN_UP_USER = "SIGN_UP_USER";
+export const SIGN_IN_USER = "SIGN_IN_USER";
+export const GET_USERS = "GET_USERS";
 export const ADD_USER = "ADD_USER";
 export const DELETE_USER = "DELETE_USER";
 

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import RenderUsers from '../components/RenderUsers';
 import { bindActionCreators } from 'redux';
-import { setUsers } from '../../../actions';
+import RenderUsers from '../components/RenderUsers';
+import { getUsers } from '../../../actions/userActions';
 
 
 class Users extends Component {
 
     componentDidMount() {
-        this.props.setUsers("http://localhost:3002/users", "GET");
+        this.props.getUsers('http://localhost:3002/users', 'GET');
     }
 
     render(){
@@ -27,7 +26,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = dispatch => bindActionCreators({
-    setUsers
+    getUsers
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
