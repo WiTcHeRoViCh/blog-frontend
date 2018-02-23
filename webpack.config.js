@@ -2,7 +2,11 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
-        path: './dist'
+        path: './dist',
+        publicPath: '/',
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     module: {
         loaders: [
