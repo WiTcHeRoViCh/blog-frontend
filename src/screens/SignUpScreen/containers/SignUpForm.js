@@ -13,7 +13,7 @@ class SignUpForm extends Component {
     };
     initialState = { ...this.state };
 
-        handleChange = e => {
+    handleChange = e => {
         const name = e.target.name;
         const value = e.target.value;
 

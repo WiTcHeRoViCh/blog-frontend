@@ -10,11 +10,20 @@ const currentUserHandlers = {
         ...state,
         ...status.request(type),
     }),
-    [`${SIGN_IN_USER}_${SUCCESS}`]: (state, { type, serverResponse }) => ({
-        ...state,
-        current_user: { online: true, ...serverResponse.data },
-        ...status.success(type),
-    }),
+    [`${SIGN_IN_USER}_${SUCCESS}`]: (state, { type, serverResponse }) => {
+        const { token } = serverResponse.data;
+        localStorage.setItem('token', token);
+
+        return ({
+            ...state,
+            current_user: {
+                online: true,
+                ...serverResponse.data.user,
+            },
+            token,
+            ...status.success(type),
+        })
+    },
     [`${SIGN_IN_USER}_${FAILURE}`]: (state, { type }) => ({
         ...state,
         ...status.failure(type),
