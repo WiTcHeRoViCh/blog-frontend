@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RenderUsers from '../components/RenderUsers';
 import { getUsers } from '../../../actions/userActions';
+import AuthWrapper from '../../../components/AuthWrapper';
 
 
 class Users extends Component {
@@ -22,11 +23,11 @@ class Users extends Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.users.users,
-    }
+        users: state.userReducer.users,
+    };
 };
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getUsers
+    getUsers,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default AuthWrapper(connect(mapStateToProps, mapDispatchToProps)(Users));

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import RenderSignInForm from '../components/RenderSignInForm';
-import { signInUser } from "../../../actions/userActions";
+import { signInUser } from "../../../actions/authActions";
 
 class SignInForm extends Component {
     state = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RenderForm from '../components/RenderForm';
-import { singUpUser } from "../../../actions/userActions";
+import { singUpUser } from "../../../actions/authActions";
 import { bindActionCreators } from "redux";
 
 

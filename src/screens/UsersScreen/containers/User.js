@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RenderUser from '../components/RenderUser';
 import { getUser } from '../../../actions/userActions';
+import AuthWrapper from '../../../components/AuthWrapper';
 
 class User extends Component {
 
     componentDidMount(){
-        const user_id = this.props.match.params.id;
+        const userParam = this.props.match.params.id || 'me';
 
-        this.props.getUser(user_id);
+        this.props.getUser(userParam);
     }
 
     render(){
@@ -21,9 +22,9 @@ class User extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ userReducer }) => {
     return {
-        user: state.users.user,
+        user: userReducer.user,
     }
 };
 
@@ -31,4 +32,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getUser
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default AuthWrapper(connect(mapStateToProps, mapDispatchToProps)(User));
