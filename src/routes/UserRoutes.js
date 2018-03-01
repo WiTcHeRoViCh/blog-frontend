@@ -9,6 +9,6 @@ export default (
         <Route exact path="/users" component={Users} />
         <Route exact path="/users/:userParams" component={User} />
 
-        {PostsRoutes}
+        <PostsRoutes />
     </div>
 )

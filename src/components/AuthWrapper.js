@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import SignInForm from '../screens/SignInScreen/containers/SignInForm';
+import { getCurrentUser } from '../actions/authActions';
 
 export default function (WrappedComponent) {
 
     class Wrapper extends Component {
+        componentDidMount() {
+            !this.isCurrentUser() ?
+                this.props.getCurrentUser() :
+                null;
+        }
 
-        checkToken(){
-            const localStorageToken = localStorage.getItem('token');
-            const reducerToken = this.props.token;
+        isCurrentUser(){
+            const { currentUser } = this.props;
 
-            return ((localStorageToken === reducerToken) && reducerToken && localStorageToken );
+            return currentUser.isOnline;
         }
 
         render() {
             return (
-                this.checkToken() ?
+                this.isCurrentUser() ?
                     <WrappedComponent {...this.props} /> :
-                    <SignInForm />
+                    null
             );
 
         }
@@ -30,5 +36,9 @@ export default function (WrappedComponent) {
         };
     };
 
-    return connect(mapStateToProps, null)(Wrapper);
+    const mapDispatchToProps = dispatch => bindActionCreators({
+        getCurrentUser,
+    }, dispatch);
+
+    return connect(mapStateToProps, mapDispatchToProps)(Wrapper);
 };

@@ -6,13 +6,12 @@ export const requestMiddleware = ({ dispatch, getState }) => next => action => {
 
         const token = getState().currentUserReducer.token || localStorage.getItem('token') || '';
         const { url, method = 'GET', type, data = null } = action;
+        console.log("url", url)
 
         axios({ url, method, data, headers: { Authorization: token } }).then( res => {
-            if (res.data.hasOwnProperty('success')){
-                return next({ type: `${type} ${FAILURE}` });
-            } else {
-                return next({ type: `${type} ${SUCCESS}`, serverResponse: res });
-            }
+            return (res.data.hasOwnProperty('success')) ?
+                next({ type: `${type} ${FAILURE}` }) :
+                next({ type: `${type} ${SUCCESS}`, serverResponse: res });
         }).catch( () => {
             return next({ type: `${type} ${FAILURE}` });
         });

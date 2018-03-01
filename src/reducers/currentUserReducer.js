@@ -12,7 +12,7 @@ const currentUserHandlers = {
     }),
     [`${SIGN_IN_USER} ${SUCCESS}`]: (state, { type, serverResponse }) => {
         const { token } = serverResponse.data;
-        localStorage.setItem('token', token);
+        (token) ? localStorage.setItem('token', token) : null;
 
         return ({
             ...state,
