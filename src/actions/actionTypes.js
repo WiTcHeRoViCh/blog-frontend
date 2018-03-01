@@ -8,7 +8,8 @@ export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
 
-
+// Post actions
+export const GET_USER_POSTS = 'GET_USER_POSTS';
 
 //Status
 export const REQUEST = 'REQUEST';

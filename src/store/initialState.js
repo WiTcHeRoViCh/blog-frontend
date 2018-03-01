@@ -1,13 +1,19 @@
-import { GET_USER, SET_USERS } from '../actions/actionTypes';
+import {GET_USER, GET_USERS, GET_USER_POSTS, SIGN_UP_USER, SIGN_OUT_USER, SIGN_IN_USER } from '../actions/actionTypes';
 
 const defaultStatus = { request: false, success: false, failure: false };
 
 export const usersInitialState = {
     users: [],
-    user: '',
+    user: {
+        _id: null,
+        username: null,
+        posts: [],
+    },
 
-    [`${SET_USERS}`]: defaultStatus,
+    [`${GET_USERS}`]: defaultStatus,
     [`${GET_USER}`]: defaultStatus,
+    [`${GET_USER_POSTS}`]: defaultStatus,
+    [`${SIGN_UP_USER}`]: defaultStatus,
 };
 
 export const currentUserInitialState = {
@@ -19,4 +25,7 @@ export const currentUserInitialState = {
         posts: [],
     },
     token: null,
+
+    [`${SIGN_IN_USER}`]: defaultStatus,
+    [`${SIGN_OUT_USER}`]: defaultStatus,
 };

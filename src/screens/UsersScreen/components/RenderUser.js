@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class RenderUser extends Component {
     render(){
-        const { user } = this.props;
-        const displayUser = user ?
-            <div>{user.username}</div> :
-            <div>User not found</div>;
+        const { user, url } = this.props;
 
         return (
             <div>
-                {displayUser}
+                <div>{user.username}</div>
+
+                <Link to={`${url}/posts`}>{user.username} posts</Link>
             </div>
-        )
+        );
     }
 }
