@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
+import { withRouter, Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import RenderSignInForm from '../components/RenderSignInForm';
-import { signInUser } from "../../../actions/authActions";
+
+import { signInUser } from '../../../actions/authActions';
 
 class SignInForm extends Component {
     state = {
@@ -24,7 +26,7 @@ class SignInForm extends Component {
         if (this.isValid()){
             this.props.signInUser(this.state);
         } else {
-            console.log("no valid");
+            console.log('no valid');
             // do smt when is no valid
         }
 
@@ -40,7 +42,11 @@ class SignInForm extends Component {
     render(){
         return (
             <div>
-                <RenderSignInForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} data={this.state} />
+                <RenderSignInForm
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                    data={this.state}
+                />
             </div>
         );
     }
@@ -50,4 +56,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     signInUser
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(SignInForm);
+export default withRouter(connect(null, mapDispatchToProps)(SignInForm));

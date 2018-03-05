@@ -6,7 +6,6 @@ export const requestMiddleware = ({ dispatch, getState }) => next => action => {
 
         const token = getState().currentUserReducer.token || localStorage.getItem('token') || '';
         const { url, method = 'GET', type, data = null } = action;
-        console.log("url", url)
 
         axios({ url, method, data, headers: { Authorization: token } }).then( res => {
             return (res.data.hasOwnProperty('success')) ?

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Header from './Header';
 import allRoutes from '../routes';
 
-export default class App extends Component {
+class App extends Component {
     render(){
         return (
             <div>
@@ -12,3 +13,5 @@ export default class App extends Component {
         )
     };
 }
+
+export default withRouter(App);

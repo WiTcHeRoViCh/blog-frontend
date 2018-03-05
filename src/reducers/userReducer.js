@@ -1,6 +1,6 @@
 import { injectReducer } from './helpers/injectReducer';
 import { usersInitialState } from '../store/initialState';
-import { REQUEST, GET_USERS, GET_USER, GET_USER_POSTS, SUCCESS, FAILURE, SIGN_UP_USER } from '../actions/actionTypes';
+import { REQUEST, GET_USERS, GET_USER, GET_USER_WITH_POSTS, ADD_USER_POSTS, SUCCESS, FAILURE, SIGN_UP_USER } from '../actions/actionTypes';
 import { status } from '../helperFunctions';
 
 
@@ -36,11 +36,11 @@ const userHandlers = {
     }),
 
 // Get users post
-    [`${GET_USER_POSTS} ${REQUEST}`]: (state, { type }) => ({
+    [`${GET_USER_WITH_POSTS} ${REQUEST}`]: (state, { type }) => ({
         ...state,
         ...status.request(type),
     }),
-    [`${GET_USER_POSTS} ${SUCCESS}`]: (state, { type, serverResponse }) => {
+    [`${GET_USER_WITH_POSTS} ${SUCCESS}`]: (state, { type, serverResponse }) => {
         const { user, posts } = serverResponse.data;
 
         return {
@@ -49,10 +49,31 @@ const userHandlers = {
             ...status.success(type),
         };
     },
-    [`${GET_USER_POSTS} ${FAILURE}`]: (state, { type }) => ({
+    [`${GET_USER_WITH_POSTS} ${FAILURE}`]: (state, { type }) => ({
         ...state,
         ...status.failure(type),
     }),
+
+    // Posts
+    [`${ADD_USER_POSTS} ${REQUEST}`]: (state, { type }) => ({
+        ...state,
+        ...status.request(type),
+    }),
+    [`${ADD_USER_POSTS} ${SUCCESS}`]: (state, { type, serverResponse }) => {
+        const { user, post } = serverResponse.data;
+        const { posts } = state.user;
+
+        return {
+            ...state,
+            user: { ...user, posts: [...posts, post ] },
+            ...status.success(type),
+        };
+    },
+    [`${ADD_USER_POSTS} ${FAILURE}`]: (state, { type }) => ({
+        ...state,
+        ...status.failure(type),
+    }),
+
 
 // Sing up
     [`${SIGN_UP_USER} ${REQUEST}`]: (state, { type }) => ({

@@ -18,15 +18,15 @@ class Header extends Component {
                 { currentUser.isOnline ?
                     <div>
                         <button onClick={() => this.handleClick()}>Sign out</button>
-                        <Link to="/users">Users</Link>
-                        <Link to="/">Home</Link>
-                    </div> :
+                        <Link to='/users'>Users</Link>
+                    </div>
+                    :
                     <div>
-                        <Link to="/sign_in">Sign in</Link>
-                        <Link to="/sign_up">Sign up</Link>
+                        <Link to='/sign_in'>Sign in</Link>
+                        <Link to='/sign_up'>Sign up</Link>
                     </div>
                 }
-
+                <Link to='/'>Home page</Link>
             </header>
         )
     }

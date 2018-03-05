@@ -1,46 +1,61 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import UserPosts from '../screens/PostsScreen/containers/UserPosts';
-import UserPost from '../screens/PostsScreen/containers/UserPost';
-import { getUserPosts } from '../actions/userActions';
 
+import UserPosts from '../screens/PostsScreen/containers/UserPosts';
+
+import { getUserWithPosts, addUserPost, deleteUserPost, editUserPost } from '../actions/postActions';
+
+import AuthWrapper from '../components/AuthWrapper';
 
 class PostRoutes extends Component {
-    componentDidMount() {
-    }
 
     render() {
-        const { user } = this.props;
+        const { currentUser } = this.props;
 
         return (
             <div>
-                <Route
+                <Route exact
                     path='/users/:userParams/posts'
                     render={props => (
                         <UserPosts
-                            match={props.match}
-                            location={props.location}
-                            history={props.history}
-                            user={user}
+                            {...this.props}
+                            {...props}
                         />
                     )}
                 />
-                <Route exact path='/users/:userParams/posts/:postParams' component={UserPost} />
+
+                <Route exact
+                    path='/me/posts'
+                    render={props => (
+                        <UserPosts
+                            {...this.props}
+                            {...props}
+                            user={currentUser}
+                        />
+                    )} />
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ userReducer, currentUserReducer }) => {
     return {
-        user: state.userReducer.user,
+        user: userReducer.user,
+
+        currentUser: currentUserReducer.currentUser,
     };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getUserPosts,
+    getUserWithPosts, addUserPost, deleteUserPost, editUserPost
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostRoutes);
+export default withRouter(AuthWrapper(connect(mapStateToProps, mapDispatchToProps)(PostRoutes)));
+
+
+// user={user}
+// getUserWithPosts={getUserWithPosts}
+// addUserPost={addUserPost}
+// {...props}
