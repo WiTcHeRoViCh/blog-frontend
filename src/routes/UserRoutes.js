@@ -11,13 +11,18 @@ import { GET_USER_WITH_POSTS } from '../actions/actionTypes';
 import { getUsers } from '../actions/userActions';
 import { getUserWithPosts } from '../actions/postActions';
 
-import AuthWrapper from '../components/AuthWrapper';
-
 
 class UserRoutes extends Component {
 
     render(){
-        const { user, users, currentUser, getUsers, getUserWithPosts, getUserWithPostsStatus } = this.props;
+        const {
+            user,
+            users,
+            currentUser,
+            getUsers,
+            getUserWithPosts,
+            getUserWithPostsStatus
+        } = this.props;
 
         return (
             <div>
@@ -54,4 +59,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getUsers, getUserWithPosts,
 }, dispatch);
 
-export default withRouter(AuthWrapper(connect(mapStateToProps, mapDispatchToProps)(UserRoutes)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserRoutes));

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import RenderUsers from '../components/RenderUsers';
+import AuthWrapper from '../../../components/AuthWrapper';
+
 
 class Users extends Component {
     componentDidMount() {
@@ -17,4 +19,4 @@ class Users extends Component {
     }
 }
 
-export default Users;
+export default AuthWrapper(Users);

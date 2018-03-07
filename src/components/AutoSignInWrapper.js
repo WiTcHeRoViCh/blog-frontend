@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import { autoSignIn } from '../actions/authActions';
 import { SIGN_IN_USER } from '../actions/actionTypes';
 
@@ -28,15 +27,8 @@ export default function(WrappedComponent) {
         }
 
         render(){
-            const { signInStatus } = this.props;
-            const { success, failure } = signInStatus;
-
             return (
-                failure ?
-                    <Redirect to='/sign_in' /> :
-                    success ?
-                        <WrappedComponent /> :
-                        null
+                <WrappedComponent />
             )
         }
     }

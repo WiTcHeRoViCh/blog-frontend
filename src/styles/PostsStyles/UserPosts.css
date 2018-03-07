@@ -1,0 +1,42 @@
+.postsPosition {
+    display: flex;
+    justify-content: center;
+}
+
+.postsBox {
+
+}
+
+.postsTitle {
+
+}
+
+.editPostForm {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+    flex-wrap: wrap;
+}
+
+.editPostFormCancelButton {
+    align-self: center;
+}
+
+.postsContent {
+    padding: 30px;
+}
+
+.postsContent img {
+    width: 100%;
+}
+
+.postControl {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.postControl > div:first-child {
+    margin-bottom: 15px;
+}

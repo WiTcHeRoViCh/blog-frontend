@@ -7,8 +7,6 @@ import UserPosts from '../screens/PostsScreen/containers/UserPosts';
 
 import { getUserWithPosts, addUserPost, deleteUserPost, editUserPost } from '../actions/postActions';
 
-import AuthWrapper from '../components/AuthWrapper';
-
 class PostRoutes extends Component {
 
     render() {
@@ -52,10 +50,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getUserWithPosts, addUserPost, deleteUserPost, editUserPost
 }, dispatch);
 
-export default withRouter(AuthWrapper(connect(mapStateToProps, mapDispatchToProps)(PostRoutes)));
-
-
-// user={user}
-// getUserWithPosts={getUserWithPosts}
-// addUserPost={addUserPost}
-// {...props}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostRoutes));

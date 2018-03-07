@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import RenderUserPosts from '../components/RenderUserPosts';
+import AuthWrapper from '../../../components/AuthWrapper';
 
-export default class UserPosts extends Component {
+class UserPosts extends Component {
     state = {
         displayForm: false,
         displayEditForm: false,
@@ -17,18 +18,15 @@ export default class UserPosts extends Component {
     }
 
 
-    handleDelete = e => {
-        const id = e.target.id;
-
-        this.props.deleteUserPost(this.props.user._id, id);
+    handleDelete = id => {
+        confirm('Delete this post?') ? this.props.deleteUserPost(this.props.user._id, id) : null;
     };
 
-    handleEditPost = (e, editedPostId) => {
-        const postId = e.target.id || editedPostId || '';
-        const { editedPostId: epi, displayEditForm: def } = this.state;
-        const displayEditForm = postId === epi ? !def : true;
+    handleEditPost = id => {
+        const { editedPostId, displayEditForm: def } = this.state;
+        const displayEditForm = id === editedPostId ? !def : true;
 
-        this.setState({ editedPostId: postId, displayEditForm });
+        this.setState({ editedPostId: id, displayEditForm });
     };
 
     handleToggleDisplayPostForm = () => {
@@ -38,19 +36,16 @@ export default class UserPosts extends Component {
     };
 
 
-    formNewPostSubmit = (e, date) => {
-        e.preventDefault();
-
+    formNewPostSubmit = date => {
         this.props.addUserPost(this.props.user._id, date);
         this.handleToggleDisplayPostForm();
     };
 
-    formEditPostSubmit = (e, date) => {
-        e.preventDefault();
+    formEditPostSubmit = date => {
         const postId = this.state.editedPostId;
 
         this.props.editUserPost(this.props.user._id, postId, date);
-        this.handleEditPost(e, postId);
+        this.handleEditPost(postId);
     };
 
     render(){
@@ -66,3 +61,5 @@ export default class UserPosts extends Component {
         );
     }
 }
+
+export default AuthWrapper(UserPosts);

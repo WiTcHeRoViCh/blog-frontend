@@ -1,0 +1,19 @@
+.formPosition {
+    display: flex;
+    justify-content: center;
+    margin-top: 75px;
+}
+
+.formBox {
+    width: 30vw;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+
+    background: white;
+}
+
+.sign__form {
+    margin: 0 30px 30px 30px;
+
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,99 @@
+.userPosition {
+    display: flex;
+    justify-content: center;
+}
+
+.userBox {
+    width: 70vw;
+    min-width: 280px;
+
+    margin-top: 50px;
+    border-radius: 70px 70px 0 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+
+    background: white;
+}
+
+.userGreetingBox {
+    border-radius: 70px 70px 0 0;
+    padding: 15px 0;
+    background: rgb(0, 188, 212);
+
+    display: flex;
+    justify-content: center;
+}
+
+.userGreeting {
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.userContent {
+    padding: 30px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.userAvatarBox {
+    flex-grow: 1;
+    flex-basis: 100px;
+}
+
+.userAvatarBox img {
+    width: 100%;
+    min-width: 50px;
+}
+
+.userInformation {
+    padding-left: 10px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 3;
+}
+
+.userInformation div {
+    background: gainsboro;
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    min-width: 50px;
+}
+
+
+
+.userPosts {
+    margin: 30px;
+}
+
+.titleElement {
+    background: gainsboro;
+    padding: 15px 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.userPostsBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.userPost {
+    background: rgb(0, 188, 212);
+    padding: 20px;
+    color: white;
+    font-size: 19px;
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.userPost h2 {
+    margin-top: 0;
+}

@@ -9,6 +9,7 @@ export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
 
 // Post actions
+export const GET_USERS_POSTS = 'GET_USERS_POSTS';
 export const GET_USER_WITH_POSTS = 'GET_USER_WITH_POSTS';
 export const ADD_USER_POSTS = 'ADD_USER_POSTS';
 export const DELETE_USER_POST = 'DELETE_USER_POST';

@@ -1,0 +1,24 @@
+header a {
+    color: #fffdfd;
+}
+
+.headerAuthElement {
+    font-size: 22px;
+    line-height: 3;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.currentUserMenu a {
+    color: black;
+}
+
+.headerAuthElement a {
+    padding: 0 7px;
+}
+
+
+.headerAuthElement a:hover {
+    background: #8383fa4d;
+}

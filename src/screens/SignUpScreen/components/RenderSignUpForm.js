@@ -9,20 +9,20 @@ import FlatButton from 'material-ui/FlatButton';
 
 import '../../../styles/AuthStyles/SignInUp.css';
 
+export default class RenderForm extends Component {
 
-export default class RenderSignInForm extends Component {
-    render(){
+    render() {
         const { handleChange, handleSubmit } = this.props;
-        const { username, password } = this.props.data;
+        const { username, password, password_confirmation } = this.props.date;
 
         return (
             <div className='formPosition'>
                 <div className='formBox'>
                     <MuiThemeProvider>
-                        <AppBar title='Sign in' iconElementLeft={<div></div>} />
+                        <AppBar title='Sign up' iconElementLeft={<div></div>} />
                     </MuiThemeProvider>
 
-                    <form className='sign__form' onSubmit={handleSubmit} autoComplete='off'>
+                    <form className='sign__form' onSubmit={handleSubmit}>
                         <MuiThemeProvider>
                             <TextField
                                 floatingLabelText='Write username'
@@ -41,8 +41,17 @@ export default class RenderSignInForm extends Component {
                                 fullWidth
                             />
 
+                            <TextField
+                                floatingLabelText='Confirm password'
+                                onChange={handleChange}
+                                name={'password_confirmation'}
+                                defaultValue={password_confirmation}
+                                type='password'
+                                fullWidth
+                            />
+
                             <FlatButton
-                                label='Sign in'
+                                label='Sign up'
                                 labelPosition='before'
                                 style={styles.submitButton}
                                 containerElement='label'
@@ -53,6 +62,6 @@ export default class RenderSignInForm extends Component {
                     </form>
                 </div>
             </div>
-        );
+        )
     }
 }

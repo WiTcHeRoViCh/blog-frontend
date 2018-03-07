@@ -89,14 +89,15 @@ const currentUserHandlers = {
         ...status.request(type),
     }),
     [`${SIGN_IN_USER} ${SUCCESS}`]: (state, { type, serverResponse }) => {
-        const { token } = serverResponse.data;
+        const { token, user } = serverResponse.data;
         (token) ? localStorage.setItem('token', token) : null;
 
         return ({
             ...state,
             currentUser: {
+                ...state.currentUser,
                 isOnline: true,
-                ...serverResponse.data.user,
+                ...user,
             },
             token,
             ...status.success(type),
@@ -106,7 +107,6 @@ const currentUserHandlers = {
         ...state,
         ...status.failure(type),
     }),
-
 
     //Current user sign out
     [`${SIGN_OUT_USER} ${REQUEST}`]: (state, { type }) => ({
@@ -120,11 +120,7 @@ const currentUserHandlers = {
         return ({
             ...state,
             currentUser: {
-                isOnline: false,
-                _id: null,
-                username: null,
-                password: null,
-                posts: [],
+                ...currentUserInitialState.currentUser,
             },
             token,
             ...status.success(type),

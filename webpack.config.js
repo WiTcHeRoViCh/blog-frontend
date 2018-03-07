@@ -3,7 +3,7 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: './dist',
-        publicPath: '/',
+        publicPath: '/src/images',
     },
     devServer: {
         historyApiFallback: true,
@@ -23,6 +23,10 @@ module.exports = {
                 loaders: [ 'style-loader', 'css-loader' ],
                 use: [ 'style-loader', 'css-loader' ]
             },
+            {
+                test: /\.(jpg|png|svg|jpeg)$/,
+                loader: 'file-loader?name=/[name].[ext]',
+            }
         ],
     }
 };

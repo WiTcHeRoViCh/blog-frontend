@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import RenderUser from '../components/RenderUser';
+import AuthWrapper from '../../../components/AuthWrapper';
 
-export default class User extends Component {
+class User extends Component {
 
     componentDidMount(){
         const userParam = this.props.match.params.userParams;
@@ -18,7 +19,7 @@ export default class User extends Component {
                 <div>User not found</div> :
                 (success) ?
                     <RenderUser user={user} url={match.url} /> :
-                    <div>Rendering...</div>
+                    null
         );
 
         return (
@@ -26,3 +27,5 @@ export default class User extends Component {
         )
     }
 }
+
+export default AuthWrapper(User);

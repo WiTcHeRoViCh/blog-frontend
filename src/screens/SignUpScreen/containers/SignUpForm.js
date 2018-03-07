@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import RenderForm from '../components/RenderForm';
-import { singUpUser } from "../../../actions/authActions";
 import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import RenderForm from '../components/RenderSignUpForm';
+import { singUpUser } from "../../../actions/authActions";
+import { SIGN_UP_USER } from "../../../actions/actionTypes";
 
 
 class SignUpForm extends Component {
@@ -10,8 +12,9 @@ class SignUpForm extends Component {
         username: '',
         password: '',
         password_confirmation: '',
+
+        redirectToSignInPath: false,
     };
-    initialState = { ...this.state };
 
     handleChange = e => {
         const name = e.target.name;
@@ -25,12 +28,11 @@ class SignUpForm extends Component {
 
         if (this.isValid()){
             this.props.singUpUser(this.state);
+            this.setState({ redirectToSignInPath: true });
         } else {
             console.log("no valid");
             //do smt when is no valid
         }
-
-        this.setState(this.initialState);
     };
 
     isValid = () => {//change this validation func in future
@@ -40,6 +42,9 @@ class SignUpForm extends Component {
     };
 
     render(){
+        const { redirectToSignInPath } = this.state;
+        const { successSignUp } = this.props;
+
         return(
             <div>
                 <RenderForm
@@ -47,13 +52,21 @@ class SignUpForm extends Component {
                     handleSubmit={this.handleSubmit}
                     date={this.state}
                 />
+
+                {redirectToSignInPath && successSignUp && <Redirect to='/sign_in' />}
             </div>
         )
     };
 }
 
+const mapStateToProps = ({ userReducer }) => {
+    return {
+        successSignUp: userReducer[`${SIGN_UP_USER}`].success,
+    };
+};
+
 const mapDispatchToProps = dispatch => bindActionCreators({
     singUpUser
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

@@ -1,0 +1,8 @@
+.postForm {
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    border-left: 1px solid #b3b3b3;
+    margin-top: 10px;
+}

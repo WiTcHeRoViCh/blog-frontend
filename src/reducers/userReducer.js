@@ -12,7 +12,7 @@ const userHandlers = {
     }),
     [`${GET_USERS} ${SUCCESS}`]: (state, { type, serverResponse }) => ({
         ...state,
-        users: serverResponse.data.users,
+        users: serverResponse.data.users.map(user => {return { avatarUrl: state.user.avatarUrl, ...user };}),
         ...status.success(type),
     }),
     [`${GET_USERS} ${FAILURE}`]: (state, { type }) => ({
@@ -27,7 +27,7 @@ const userHandlers = {
     }),
     [`${GET_USER} ${SUCCESS}`]: (state, { type, serverResponse }) => ({
         ...state,
-        user: serverResponse.data.user,
+        user: {...state.user, ...serverResponse.data.user },
         ...status.success(type),
     }),
     [`${GET_USER} ${FAILURE}`]: (state, { type }) => ({
@@ -45,7 +45,7 @@ const userHandlers = {
 
         return {
             ...state,
-            user: { ...user, posts: Array.from(posts) },
+            user: { ...state.user, ...user, posts: Array.from(posts) },
             ...status.success(type),
         };
     },
@@ -65,7 +65,7 @@ const userHandlers = {
 
         return {
             ...state,
-            user: { ...user, posts: [...posts, post ] },
+            user: { ...state.user, ...user, posts: [...posts, post ] },
             ...status.success(type),
         };
     },

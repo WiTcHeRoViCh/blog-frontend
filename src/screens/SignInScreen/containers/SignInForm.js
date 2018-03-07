@@ -5,11 +5,15 @@ import { bindActionCreators } from 'redux';
 import RenderSignInForm from '../components/RenderSignInForm';
 
 import { signInUser } from '../../../actions/authActions';
+import { SIGN_IN_USER } from '../../../actions/actionTypes';
+
 
 class SignInForm extends Component {
     state = {
         username: '',
         password: '',
+
+        redirectToMePath: false,
     };
     initialState = { ...this.state };
 
@@ -25,12 +29,12 @@ class SignInForm extends Component {
 
         if (this.isValid()){
             this.props.signInUser(this.state);
+
+            this.setState({ redirectToMePath: true });
         } else {
             console.log('no valid');
             // do smt when is no valid
         }
-
-        this.setState(this.initialState);
     };
 
     isValid = () => {//change this validation func in future
@@ -40,6 +44,9 @@ class SignInForm extends Component {
     };
 
     render(){
+        const { redirectToMePath } = this.state;
+        const { successSignIn } = this.props;
+
         return (
             <div>
                 <RenderSignInForm
@@ -47,13 +54,22 @@ class SignInForm extends Component {
                     handleSubmit={this.handleSubmit}
                     data={this.state}
                 />
+
+                {redirectToMePath && successSignIn && <Redirect to='/me' />}
             </div>
         );
     }
 }
 
+const mapStateToProps = ({ currentUserReducer }) => {
+    return {
+        successSignIn: currentUserReducer[`${SIGN_IN_USER}`].success,
+    };
+};
+
+
 const mapDispatchToProps = dispatch => bindActionCreators({
-    signInUser
+    signInUser,
 }, dispatch);
 
-export default withRouter(connect(null, mapDispatchToProps)(SignInForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignInForm));

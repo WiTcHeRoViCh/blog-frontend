@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import RenderUser from '../components/RenderUser';
+import AuthWrapper from '../../../components/AuthWrapper';
+import { withRouter } from 'react-router-dom';
 
-export default class User extends Component {
+
+class CurrentUser extends Component {
 
     render(){
         const { currentUser, match } = this.props;
@@ -11,3 +14,5 @@ export default class User extends Component {
         )
     }
 }
+
+export default withRouter(AuthWrapper(CurrentUser));
