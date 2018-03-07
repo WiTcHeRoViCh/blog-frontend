@@ -2,7 +2,7 @@ import { injectReducer } from './helpers/injectReducer';
 import { currentUserInitialState } from '../store/initialState';
 import {
     REQUEST, SUCCESS, FAILURE, SIGN_IN_USER, SIGN_OUT_USER, DELETE_USER_POST,
-    ADD_USER_POSTS, EDIT_USER_POST,
+    ADD_USER_POSTS, EDIT_USER_POST, AUTO_SIGN_IN,
 } from '../actions/actionTypes';
 import { status } from '../helperFunctions';
 
@@ -82,6 +82,30 @@ const currentUserHandlers = {
         ...status.failure(type),
     }),
 
+    // Auto sign in
+    [`${AUTO_SIGN_IN} ${REQUEST}`]: (state, { type }) => ({
+        ...state,
+        ...status.request(type),
+    }),
+    [`${AUTO_SIGN_IN} ${SUCCESS}`]: (state, { type, serverResponse }) => {
+        const { token, user } = serverResponse.data;
+        (token) ? localStorage.setItem('token', token) : null;
+
+        return ({
+            ...state,
+            currentUser: {
+                ...state.currentUser,
+                isOnline: true,
+                ...user,
+            },
+            token,
+            ...status.success(type),
+        })
+    },
+    [`${AUTO_SIGN_IN} ${FAILURE}`]: (state, { type }) => ({
+        ...state,
+        ...status.failure(type),
+    }),
 
     // Current user sign in
     [`${SIGN_IN_USER} ${REQUEST}`]: (state, { type }) => ({

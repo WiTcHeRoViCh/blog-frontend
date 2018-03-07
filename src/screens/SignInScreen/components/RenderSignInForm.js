@@ -13,13 +13,14 @@ import '../../../styles/AuthStyles/SignInUp.css';
 export default class RenderSignInForm extends Component {
     render(){
         const { handleChange, handleSubmit } = this.props;
-        const { username, password } = this.props.data;
+        const { username, password, usernameValid=true, passwordValid=true } = this.props.data;
+        const errorText = 'This field is require';
 
         return (
             <div className='formPosition'>
                 <div className='formBox'>
                     <MuiThemeProvider>
-                        <AppBar title='Sign in' iconElementLeft={<div></div>} />
+                        <AppBar title='Sign in' iconElementLeft={<div />} />
                     </MuiThemeProvider>
 
                     <form className='sign__form' onSubmit={handleSubmit} autoComplete='off'>
@@ -29,6 +30,7 @@ export default class RenderSignInForm extends Component {
                                 onChange={handleChange}
                                 name={'username'}
                                 defaultValue={username}
+                                errorText={usernameValid ? '' : errorText}
                                 fullWidth
                             />
 
@@ -38,6 +40,7 @@ export default class RenderSignInForm extends Component {
                                 name={'password'}
                                 defaultValue={password}
                                 type='password'
+                                errorText={passwordValid ? '' : errorText}
                                 fullWidth
                             />
 

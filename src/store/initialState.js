@@ -4,6 +4,7 @@ import {
     SIGN_UP_USER,
     SIGN_OUT_USER,
     SIGN_IN_USER,
+    AUTO_SIGN_IN,
     GET_USER_WITH_POSTS,
     DELETE_USER_POST,
     GET_USERS_POSTS,
@@ -51,6 +52,7 @@ export const currentUserInitialState = {
     [`${SIGN_IN_USER}`]: defaultStatus,
     [`${SIGN_OUT_USER}`]: defaultStatus,
     [`${DELETE_USER_POST}`]: defaultStatus,
+    [`${AUTO_SIGN_IN}`]: defaultStatus,
 };
 
 export const postsInitialState = {

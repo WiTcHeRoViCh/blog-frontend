@@ -41,6 +41,11 @@ export const styles = {
     textFieldStyles: {
         color: 'rgba(0, 0, 0, 0.7)',
     },
+
+    errorChipStyles: {
+        paddingRight: 20,
+        paddingLeft: 20,
+    },
 };
 
 export const defaultAvatar = 'http://localhost:8080/src/images/defaultAvatar.png';

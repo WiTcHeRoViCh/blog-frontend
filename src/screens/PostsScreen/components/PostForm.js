@@ -1,41 +1,78 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-import { styles } from '../../../constants';
+import { styles, defaultAvatar as defaultPostImage } from '../../../constants';
 
 import '../../../styles/PostsStyles/PostForm.css';
 
 const { textFieldStyles, submitButton, submitInput } = styles;
 
-export default class extends Component {
+export default class PostForm extends Component {
     state = {
         title: this.props.title || '',
         text: this.props.text || '',
         photoURL: this.props.photoURL || '',
+
+        titleValid: undefined,
+        textValid: undefined,
+        photoURLValid: undefined,
+
+        noValid: false,
+        error: ''
     };
 
     initialState = { ...this.state };
 
     handleChange = e => {
         const name = e.target.name;
+        const value = e.target.value;
+        const isValid = value.length;
 
-        this.setState({ [name]: e.target.value });
+        this.setState({ [name]: value, [`${name}Valid`]: isValid, noValid: false});
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { submitFunc } = this.props;
 
-        submitFunc(this.state);
-        this.setState(this.initialState);
+        if (this.isValid()){
+            const { submitFunc } = this.props;
+
+            axios({ url: this.state.photoURL, method: 'GET' }).then(() => {
+                submitFunc(this.state);
+                this.setState(this.initialState);
+            }).catch(() => {
+                this.setState({ noValid: true, error: 'Add valid image url' });
+            });
+        } else {
+            this.setState({ noValid: true, error: 'Fields can\'t be blank' });
+        }
+    };
+
+    isValid = () => {
+        const { titleValid, textValid, photoURLValid, photoURL, text, title } = this.state;
+
+        return ((titleValid && textValid && photoURLValid) || (photoURL.length && text.length && title.length));
     };
 
     render(){
         const { submitButtonText } = this.props;
-        const { title, text, photoURL } = this.state;
+        const {
+            title,
+            text,
+            photoURL,
+
+            titleValid=true,
+            textValid=true,
+            photoURLValid=true,
+
+            noValid,
+            error,
+        } = this.state;
+        const errorText = 'This filed is require';
 
         return(
             <div className='postFormBox'>
@@ -48,6 +85,7 @@ export default class extends Component {
                             name='title'
                             defaultValue={title}
                             floatingLabelStyle={textFieldStyles}
+                            errorText={titleValid ? '' : errorText}
                             fullWidth
                         />
 
@@ -57,6 +95,7 @@ export default class extends Component {
                             name='text'
                             defaultValue={text}
                             floatingLabelStyle={textFieldStyles}
+                            errorText={textValid ? '' : errorText}
                             fullWidth
                         />
 
@@ -66,6 +105,7 @@ export default class extends Component {
                             name='photoURL'
                             defaultValue={photoURL}
                             floatingLabelStyle={textFieldStyles}
+                            errorText={photoURLValid ? '' : errorText}
                             fullWidth
                         />
 
@@ -79,6 +119,8 @@ export default class extends Component {
                         </FlatButton>
 
                     </MuiThemeProvider>
+
+                    {noValid && <div style={{color: 'red', marginTop: 10}}>{error}</div>}
                 </form>
             </div>
         );

@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+
 import RenderSignInForm from '../components/RenderSignInForm';
 
 import { signInUser } from '../../../actions/authActions';
 import { SIGN_IN_USER } from '../../../actions/actionTypes';
+
+import '../../../styles/App.css';
 
 
 class SignInForm extends Component {
@@ -14,33 +17,38 @@ class SignInForm extends Component {
         password: '',
 
         redirectToMePath: false,
+
+        usernameValid: undefined,
+        passwordValid: undefined,
     };
     initialState = { ...this.state };
 
     handleChange = e => {
         const name = e.target.name;
         const value = e.target.value;
+        const isValid = value.length;
 
-        this.setState({[name]: value});
+        this.setState({[name]: value, [`${name}Valid`]: isValid});
     };
 
     handleSubmit = e => {
         e.preventDefault();
 
         if (this.isValid()){
-            this.props.signInUser(this.state);
+            const userInf = {
+                username: this.state.username,
+                password: this.state.password,
+            };
+            this.props.signInUser(userInf);
 
             this.setState({ redirectToMePath: true });
-        } else {
-            console.log('no valid');
-            // do smt when is no valid
         }
     };
 
-    isValid = () => {//change this validation func in future
-        const { username, password } = this.state;
+    isValid = () => {
+        const { usernameValid, passwordValid } = this.state;
 
-        return (username.length > 0 && password.length > 0)
+        return (usernameValid && passwordValid);
     };
 
     render(){

@@ -13,13 +13,22 @@ export default class RenderForm extends Component {
 
     render() {
         const { handleChange, handleSubmit } = this.props;
-        const { username, password, password_confirmation } = this.props.date;
+        const {
+            username,
+            password,
+            password_confirmation,
+
+            usernameValid=true,
+            passwordValid=true,
+            password_confirmationValid=true,
+        } = this.props.date;
+        const errorText = 'This field is require';
 
         return (
             <div className='formPosition'>
                 <div className='formBox'>
                     <MuiThemeProvider>
-                        <AppBar title='Sign up' iconElementLeft={<div></div>} />
+                        <AppBar title='Sign up' iconElementLeft={<div />} />
                     </MuiThemeProvider>
 
                     <form className='sign__form' onSubmit={handleSubmit}>
@@ -29,6 +38,7 @@ export default class RenderForm extends Component {
                                 onChange={handleChange}
                                 name={'username'}
                                 defaultValue={username}
+                                errorText={usernameValid ? '' : errorText}
                                 fullWidth
                             />
 
@@ -38,6 +48,7 @@ export default class RenderForm extends Component {
                                 name={'password'}
                                 defaultValue={password}
                                 type='password'
+                                errorText={passwordValid ? '' : errorText}
                                 fullWidth
                             />
 
@@ -47,6 +58,7 @@ export default class RenderForm extends Component {
                                 name={'password_confirmation'}
                                 defaultValue={password_confirmation}
                                 type='password'
+                                errorText={password_confirmationValid ? '' : errorText}
                                 fullWidth
                             />
 

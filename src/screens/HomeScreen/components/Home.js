@@ -9,7 +9,6 @@ import ListItem from 'material-ui/List/ListItem';
 
 import '../../../styles/UsersStyles/User.css';
 import '../../../styles/HomeStyles/Home.css';
-import {getUsersPosts} from "../../../actions/postActions";
 
 class Home extends Component {
     state = {
@@ -30,6 +29,7 @@ class Home extends Component {
 
         this.setState({ limit: limit*2 });
     };
+
 
     renderUserPosts = () => {
         const { posts } = this.props;
