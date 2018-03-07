@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import '../../../styles/UsersStyles/User.css';
+import '../../../styles/PostsStyles/UserPosts.css';
 
 export default class RenderUser extends Component {
     renderUserPosts = () => {
@@ -12,7 +13,7 @@ export default class RenderUser extends Component {
         const posts = user.posts.length > 3 ? user.posts.slice(0, 3) : user.posts;
         const wrapPosts = posts.map(post => (
             <div key={post._id} className='userPost'>
-                <div>
+                <div className='userPostContent postContent'>
                     <h3>{post.title}</h3>
                     <div>{post.text}</div>
                     <img src={post.photoURL} />

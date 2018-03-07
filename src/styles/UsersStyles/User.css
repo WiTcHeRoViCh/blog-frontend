@@ -94,6 +94,10 @@
     flex-wrap: wrap;
 }
 
+.userPost img {
+    width: 100%;
+}
+
 .userPost h2 {
     margin-top: 0;
 }
